@@ -27,17 +27,12 @@ export async function googleDetect(text) {
     return data.data.detections[0][0]["language"];
 }
 
-export async function maoriTranslate(kwargs) {
-    const params = {
-        key: secrets.googleKey,
-        q: kwargs.text,
-        from: kwargs.language === "en" ? "en" : "mi",
-        target: kwargs.language === "en" ? "mi" : "en",
-    };
-    let url = new URL(secrets.googleTranslateUrl);
+export async function maoriTranslate(text) {
+    const params = { text };
+    let url = new URL(secrets.maoriUrl);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     const response = await fetch(url);
     const data = await response.json();
-    return data.data.translations[0].translatedText;
+    return data;
 }

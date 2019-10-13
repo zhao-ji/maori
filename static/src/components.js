@@ -5,6 +5,8 @@ import {
     Row, Col,
     Card,
 } from 'react-bootstrap';
+import { faVolumeOff, faVolumeDown, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { 
     googleTranslate, googleDetect,
@@ -21,7 +23,7 @@ export class Input extends Component {
         this.input = createRef();
     }
 
-    append = vowel => {
+    handleAppend = vowel => {
         this.setState(
             prevState => ({ text: prevState.text + vowel }),
             () => {
@@ -39,17 +41,17 @@ export class Input extends Component {
             .then(language => {
                 googleTranslate({ text: this.state.text, language })
                     .then(result => {
-                        this.props.handleGoogle({ [this.state.text]: result });
+                        this.props.handleGoogle(result);
                     });
             });
-        maoriTranslate({ text: this.state.text })
+        maoriTranslate(this.state.text)
             .then(result => {
-                this.props.handleMaori({ [this.state.text]: result });
+                this.props.handleMaori(result);
             });
     }
 
     render() {
-        const longVowel = ["Ā", "Ē", "Ī", "Ō", "Ū"];
+        const longVowel = ["ā", "ē", "ī", "ō", "ū"];
         return (
             <Fragment>
                 <Row>
@@ -90,21 +92,91 @@ export class Input extends Component {
 
 export class Result extends Component {
     render() {
-        console.log(this.props);
         const { google, maori } = this.props;
+        if (!google) {
+            return false;
+        }
         return (
             <Fragment>
-                {Object.entries(google).map(([key, value]) => (
-                    <Card bg="light" key={key}>
+                <Card bg="light">
+                    <Card.Body>
+                        <Card.Text> {google} </Card.Text>
+                    </Card.Body>
+                </Card>
+                {maori.map((item, index) => (
+                    <Card bg="light" key={index}>
                         <Card.Body>
-                            <Card.Text> {value} </Card.Text>
+                            <Card.Text>
+                                {item.map((i, index) => 
+                                    <Fragment key={index}>
+                                        {i.lookup
+                                            && <b>{i.lookup}</b>}
+                                        {i.audio_href
+                                                && <AudioPlayer src={i.audio_href} />}
+                                        <hr/>
+                                        {i.translation
+                                            && <i>{i.translation}</i>}
+                                    </Fragment>
+                                )}
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 ))}
-                {Object.entries(maori).map(([key, value]) => (
-                    false
-                ))}
             </Fragment>
+        );
+    }
+}
+
+class AudioPlayer extends Component {
+    state = {
+        isPlaying: false,
+        count: 0,
+    }
+
+    onClick = () => {
+        const audio = new Audio(this.props.src);
+        if (this.state.count > 0) {
+            audio.playbackRate = 0.5;
+        }
+        audio.addEventListener("ended", () => {
+            this.setState(prevState => ({
+                isPlaying: false,
+                count: prevState.count + 1,
+            }));
+        });
+        audio.play();
+        this.setState({ isPlaying: true });
+    }
+
+    render() {
+        return (
+            this.state.isPlaying
+            ? <AudioAnimatePlayer />
+            : <FontAwesomeIcon icon={faVolumeUp} onClick={this.onClick} fixedWidth />
+        );
+    }
+}
+
+class AudioAnimatePlayer extends Component {
+    state = {
+        count: 0,
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(
+            () => this.setState(prevState => ({ count: prevState.count + 1 })),
+            500
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    render() {
+        const iconChoices = [faVolumeOff, faVolumeDown, faVolumeUp, faVolumeDown];
+        return (
+            <FontAwesomeIcon icon={iconChoices[this.state.count % 4]} fixedWidth />
         );
     }
 }

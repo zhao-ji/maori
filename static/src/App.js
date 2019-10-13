@@ -5,16 +5,16 @@ import { Input, Result } from "./components";
 
 class App extends Component {
     state = {
-        google: {},
-        maori: {},
+        google: null,
+        maori: null,
     }
 
     handleGoogle = translateObject => {
-        this.setState({ google: { ...translateObject } });
+        this.setState({ google: translateObject });
     }
 
     handleMaori = translateObject => {
-        this.setState({ maori: { ...translateObject } });
+        this.setState({ maori: translateObject });
     }
 
     render() {
