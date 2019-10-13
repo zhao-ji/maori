@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Input, Result } from "./components";
+
+class App extends Component {
+    state = {
+        google: {},
+        maori: {},
+    }
+
+    handleGoogleTranslate = translateObject => {
+        this.setState({ google: { ...translateObject } });
+    }
+
+    render() {
+        const { google, maori } = this.state;
+        return (
+            <Container>
+                <Input handleGoogle={this.handleGoogleTranslate} />
+                <Result google={google} maori={maori} />
+            </Container>
+        );
+    }
 }
 
 export default App;
