@@ -6,7 +6,10 @@ import {
     Card,
 } from 'react-bootstrap';
 
-import { googleTranslate, googleDetect } from "./utils";
+import { 
+    googleTranslate, googleDetect,
+    maoriTranslate,
+} from "./utils";
 
 export class Input extends Component {
     state = {
@@ -38,6 +41,10 @@ export class Input extends Component {
                     .then(result => {
                         this.props.handleGoogle({ [this.state.text]: result });
                     });
+            });
+        maoriTranslate({ text: this.state.text })
+            .then(result => {
+                this.props.handleMaori({ [this.state.text]: result });
             });
     }
 
@@ -93,6 +100,9 @@ export class Result extends Component {
                             <Card.Text> {value} </Card.Text>
                         </Card.Body>
                     </Card>
+                ))}
+                {Object.entries(maori).map(([key, value]) => (
+                    false
                 ))}
             </Fragment>
         );

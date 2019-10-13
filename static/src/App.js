@@ -9,15 +9,19 @@ class App extends Component {
         maori: {},
     }
 
-    handleGoogleTranslate = translateObject => {
+    handleGoogle = translateObject => {
         this.setState({ google: { ...translateObject } });
+    }
+
+    handleMaori = translateObject => {
+        this.setState({ maori: { ...translateObject } });
     }
 
     render() {
         const { google, maori } = this.state;
         return (
             <Container>
-                <Input handleGoogle={this.handleGoogleTranslate} />
+                <Input handleGoogle={this.handleGoogle} handleMaori={this.handleMaori} />
                 <Result google={google} maori={maori} />
             </Container>
         );
