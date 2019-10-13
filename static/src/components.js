@@ -111,6 +111,7 @@ export class Result extends Component {
                                     <Fragment key={index}>
                                         {i.lookup
                                             && <b>{i.lookup}</b>}
+                                        &nbsp;&nbsp;
                                         {i.audio_href
                                                 && <AudioPlayer src={i.audio_href} />}
                                         <hr/>
