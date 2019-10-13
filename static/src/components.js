@@ -103,7 +103,7 @@ export class Result extends Component {
                         <Card.Text> {google} </Card.Text>
                     </Card.Body>
                 </Card>
-                {maori.map((item, index) => (
+                {maori && maori.length > 0 && maori.map((item, index) => (
                     <Card bg="light" key={index}>
                         <Card.Body>
                             <Card.Text>
