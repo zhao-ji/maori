@@ -32,7 +32,7 @@ def fetch_maori_translation(text):
 
                 detail = instance.find(class_="detail")
                 if detail:
-                    translation = detail.find("p").get_text(strip=True)
+                    translation = detail.find("p").get_text(" ", strip=True)
                     translation = " ".join(translation.split("\n"))
                     instance_result["translation"] = translation
 

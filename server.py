@@ -30,6 +30,8 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def translate():
     text = request.args.get('text')
+    ip = request.headers.get("X-Real-IP", "")
+    logbook.info(" {} {}".format(ip, text.encode("utf-8")))
     return jsonify(fetch_maori_translation(text))
 
 
