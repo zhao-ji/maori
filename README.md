@@ -7,4 +7,3 @@ Maori language translator
 - large text
 - trip space
 - sample sentences, the passive endings and lots of possible translations
-- log
