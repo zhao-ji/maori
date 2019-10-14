@@ -1,5 +1,5 @@
 import React, { Component, createRef, Fragment } from 'react';
-import { 
+import {
     Button, ButtonGroup,
     InputGroup, Form,
     Row, Col,
@@ -8,7 +8,7 @@ import {
 import { faVolumeOff, faVolumeDown, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { 
+import {
     googleTranslate, googleDetect,
     maoriTranslate,
 } from "./utils";
@@ -56,7 +56,7 @@ export class Input extends Component {
             <Fragment>
                 <Row>
                     <Col md={12} className="text-center">
-                        <ButtonGroup>
+                        <ButtonGroup className="mt-2" size="lg">
                             {longVowel.map(
                                 (vowel, index) =>
                                 <Button key={index} variant="outline-dark"
@@ -106,20 +106,15 @@ export class Result extends Component {
                 {maori && maori.length > 0 && maori.map((item, index) => (
                     <Card bg="light" key={index}>
                         <Card.Body>
-                            <Card.Text>
-                                {item.map((i, index) => 
-                                    <Fragment key={index}>
-                                        {i.lookup
-                                            && <b>{i.lookup}</b>}
-                                        &nbsp;&nbsp;
-                                        {i.audio_href
-                                                && <AudioPlayer src={i.audio_href} />}
-                                        <hr/>
-                                        {i.translation
-                                            && <i>{i.translation}</i>}
-                                    </Fragment>
-                                )}
-                            </Card.Text>
+                            {item.map((i, index) =>
+                                <Fragment key={index}>
+                                    {i.lookup && <b>{i.lookup}</b>}
+                                    &nbsp;&nbsp;
+                                    {i.audio_href && <AudioPlayer src={i.audio_href} />}
+                                    <hr/>
+                                    {i.translation && <i>{i.translation}</i>}
+                                </Fragment>
+                            )}
                         </Card.Body>
                     </Card>
                 ))}
