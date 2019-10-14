@@ -1,9 +1,8 @@
 # maori
-Maori language translator
+Maori language translator https://maori.minganci.org
 
-###Maori Dictionary:
+### Maori Dictionary
 
 - search for sentence
 - large text
-- trip space
 - sample sentences, the passive endings and lots of possible translations
