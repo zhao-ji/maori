@@ -32,7 +32,7 @@ export class Input extends Component {
         );
     }
 
-    handleChange = (event) => {
+    handleChange = event => {
         this.setState({ text: event.target.value });
     }
 
@@ -51,6 +51,12 @@ export class Input extends Component {
             .then(result => {
                 this.props.handleMaori(result);
             });
+    }
+
+    handleKeyDown = (event) => {
+        if(event.key === "Enter") {
+            this.handleSearch();
+        }
     }
 
     render() {
@@ -76,8 +82,8 @@ export class Input extends Component {
                         placeholder="input here..."
                         ref={this.input}
                         onChange={this.handleChange}
-                        defaultValue={this.state.text}
-                        key={this.state.text}
+                        onKeyDown={this.handleKeyDown}
+                        value={this.state.text}
                     />
                     <InputGroup.Append>
                         <Button variant="outline-dark" type="button" onClick={this.handleSearch} block>
