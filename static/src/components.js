@@ -1,6 +1,6 @@
 import React, { Component, createRef, Fragment } from 'react';
 import {
-    Button, ButtonGroup,
+    Button,
     InputGroup, Form,
     Row, Col,
     Card,
@@ -37,6 +37,9 @@ export class Input extends Component {
     }
 
     handleSearch = () => {
+        if (!this.state.text) {
+            return;
+        }
         googleDetect(this.state.text)
             .then(language => {
                 googleTranslate({ text: this.state.text, language })
@@ -55,16 +58,13 @@ export class Input extends Component {
         return (
             <Fragment>
                 <Row>
-                    <Col md={12} className="text-center">
-                        <ButtonGroup className="mt-2" size="lg">
-                            {longVowel.map(
-                                (vowel, index) =>
-                                <Button key={index} variant="outline-dark"
-                                    onClick={()=>this.handleAppend(vowel)}>
-                                    {vowel}
-                                </Button>
-                            )}
-                        </ButtonGroup>
+                    <Col md={12} className="vowels">
+                        {longVowel.map((vowel, index) =>
+                            <Button key={index} variant="outline-secondary" className="vowel"
+                                onClick={()=>this.handleAppend(vowel)}>
+                                {vowel}
+                            </Button>
+                        )}
                     </Col>
                 </Row>
                 <InputGroup size="lg" id="search-component">

@@ -7,10 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.btn:active:focus {
-    outline: none;
+.vowels {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
 }
 
-.container > * + * {
+.vowel {
+    flex: 0 0 3em;
+}
+
+.container > * {
     margin: 0.5em 0;
 }
