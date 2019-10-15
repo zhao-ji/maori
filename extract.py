@@ -24,8 +24,9 @@ def fetch_maori_translation(text):
                 title = instance.find(class_="title")
                 if title:
                     lookup = title.find(text=True, recursive=False)
-                    instance_result["lookup"] = "".join(
-                        lookup.split("\n")).strip()
+                    if lookup == "Found 0 matches":
+                        continue
+                    instance_result["lookup"] = "".join(lookup.split("\n")).strip()
                     audio = title.find("audio")
                     if audio:
                         instance_result["audio_href"] = audio["src"]
