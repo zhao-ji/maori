@@ -3,6 +3,8 @@
 
 from flask import Flask, request, jsonify
 import logbook
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 
 from extract import fetch_maori_translation
 
@@ -23,6 +25,10 @@ def apply_logging():
     local_log.push_application()
 
 
+sentry_sdk.init(
+    dsn="https://185976c83698461c95db2c658d7f1fca@o374324.ingest.sentry.io/5197511",
+    integrations=[FlaskIntegration()]
+)
 apply_logging()
 app = Flask(__name__)
 

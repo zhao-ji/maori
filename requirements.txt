@@ -12,6 +12,7 @@ logbook==1.5.2
 MarkupSafe==1.1.1
 pkg-resources==0.0.0
 requests==2.22.0
+sentry-sdk[flask]==0.14.3
 soupsieve==1.9.4
 urllib3==1.25.6
 Werkzeug==0.16.0
