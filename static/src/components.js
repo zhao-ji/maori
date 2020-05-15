@@ -9,7 +9,9 @@ import { faVolumeOff, faVolumeDown, faVolumeUp } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-    googleTranslate, googleDetect,
+    googleDetect,
+    googleTranslate,
+    baiduTranslate,
     maoriTranslate,
 } from "./utils";
 
@@ -45,6 +47,10 @@ export class Input extends Component {
                 googleTranslate({ text: this.state.text, language })
                     .then(result => {
                         this.props.handleGoogle(result);
+                    });
+                baiduTranslate({ text: this.state.text, language })
+                    .then(result => {
+                        this.props.handleBaidu(result);
                     });
             });
         maoriTranslate(this.state.text)
@@ -98,7 +104,7 @@ export class Input extends Component {
 
 export class Result extends Component {
     render() {
-        const { google, maori } = this.props;
+        const { google, baidu, maori } = this.props;
         if (!google) {
             return false;
         }
@@ -106,7 +112,22 @@ export class Result extends Component {
             <Fragment>
                 <Card bg="light">
                     <Card.Body>
-                        <Card.Text> {google} </Card.Text>
+                        <blockquote className="blockquote mb-0">
+                            {google}
+                            <cite className="blockquote-footer float-right mt-1">
+                                Google
+                            </cite>
+                        </blockquote>
+                    </Card.Body>
+                </Card>
+                <Card bg="light">
+                    <Card.Body>
+                        <blockquote className="blockquote mb-0">
+                            {baidu}
+                            <cite className="blockquote-footer float-right mt-1">
+                                Baidu
+                            </cite>
+                        </blockquote>
                     </Card.Body>
                 </Card>
                 {maori && maori.length > 0 && maori.map((item, index) => (
