@@ -26,12 +26,26 @@ export class Input extends Component {
     }
 
     handleAppend = vowel => {
-        this.setState(
-            prevState => ({ text: prevState.text + vowel }),
-            () => {
-                this.input.current.focus()
+        const cursorStart = this.input.current.selectionStart;
+        const cursorEnd = this.input.current.selectionEnd;
+        const textLength = this.state.text.length;
+        if (cursorStart === cursorEnd) {
+            if (cursorStart === textLength) {
+                const appendText = prevState => ({ text: prevState.text + vowel });
+                this.setState(
+                    appendText,
+                    () => this.input.current.focus()
+                );
+            } else if (cursorStart < textLength) {
+                const insertText = prevState => ({
+                    text: prevState.text.substring(0, cursorStart) + vowel + prevState.text.substring(cursorStart)
+                });
+                this.setState(
+                    insertText,
+                    () => this.input.current.focus()
+                );
             }
-        );
+        }
     }
 
     handleChange = event => {
