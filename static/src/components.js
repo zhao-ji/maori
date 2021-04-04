@@ -62,10 +62,10 @@ export class Input extends Component {
                     .then(result => {
                         this.props.handleGoogle(result);
                     });
-                baiduTranslate({ text: this.state.text, language })
-                    .then(result => {
-                        this.props.handleBaidu(result);
-                    });
+                // baiduTranslate({ text: this.state.text, language })
+                //     .then(result => {
+                //         this.props.handleBaidu(result);
+                //     });
             });
         maoriTranslate(this.state.text)
             .then(result => {
@@ -134,6 +134,7 @@ export class Result extends Component {
                         </blockquote>
                     </Card.Body>
                 </Card>
+                <Comment>
                 <Card bg="light">
                     <Card.Body>
                         <blockquote className="blockquote mb-0">
@@ -144,6 +145,7 @@ export class Result extends Component {
                         </blockquote>
                     </Card.Body>
                 </Card>
+                </Comment>
                 {maori && maori.length > 0 && maori.map((item, index) => (
                     <Card bg="light" key={index}>
                         <Card.Body>
@@ -217,3 +219,5 @@ class AudioAnimatePlayer extends Component {
         );
     }
 }
+
+const Comment = () => null;
