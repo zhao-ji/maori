@@ -14,7 +14,7 @@ def fetch_maori_translation(text):
     result = []
     if ret.ok:
         parsed_html = BeautifulSoup(ret.content, features="html.parser")
-        all_sections = parsed_html.find_all('section', attrs={"class": None})
+        all_sections = parsed_html.find_all('section', attrs={"class": "word-def"})
         for section in all_sections:
             section_result = []
             instances = section.find_all(class_="center")
@@ -45,3 +45,4 @@ def fetch_maori_translation(text):
 
 if __name__ == "__main__":
     pprint(fetch_maori_translation("code"))
+    pprint(fetch_maori_translation("hello"))
